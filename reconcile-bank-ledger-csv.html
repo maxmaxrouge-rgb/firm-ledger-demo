@@ -1,0 +1,44 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'"><title>How to reconcile bank and ledger CSV files | Ledger Lens</title><meta name="description" content="Compare bank and ledger CSV files with a synthetic worked example. Prepare the template, find date mismatches, and review the draft AUD 299 pilot."><link rel="canonical" href="https://maxmaxrouge-rgb.github.io/firm-ledger-demo/reconcile-bank-ledger-csv.html"><meta property="og:type" content="article"><meta property="og:title" content="How to reconcile bank and ledger CSV files | Ledger Lens"><meta property="og:description" content="Compare bank and ledger CSV files with a synthetic worked example. Prepare the template, find date mismatches, and review the draft AUD 299 pilot."><meta property="og:url" content="https://maxmaxrouge-rgb.github.io/firm-ledger-demo/reconcile-bank-ledger-csv.html"><meta property="og:site_name" content="Ledger Lens"><meta property="og:image" content="https://maxmaxrouge-rgb.github.io/firm-ledger-demo/social-preview.png"><style>body{margin:0;background:#eef3f5;color:#163143;font:18px/1.65 system-ui}main{max-width:780px;margin:auto;padding:40px 24px}h1{font-size:clamp(32px,6vw,46px);line-height:1.15}h2{margin-top:40px}a{color:#096775}small,.label{color:#4a6170}pre{overflow:auto;background:white;padding:20px;font-size:14px;border-radius:10px}.button{display:inline-block;background:#fff;padding:10px;margin:5px 5px 5px 0;border-radius:6px}footer{border-top:1px solid #bdcdd5;margin-top:40px;padding-top:20px}</style></head><body><main><nav><a href="./">Ledger Lens demo</a> · <a href="offer.html">Pilot scope and price</a></nav>
+<p class="label">PRACTICAL GUIDE · SYNTHETIC DATA</p><h1>How to reconcile bank and ledger CSV files</h1>
+<p>For accounting and bookkeeping firms assessing a CSV reconciliation workflow.</p>
+<p><small>[inferred] This guide targets the query “how to reconcile bank and ledger CSV files”. The query reflects the proposed pilot task. Search volume and buyer intent have not been measured.</small></p>
+<h2>1. Prepare two files from the template</h2>
+<p><small>[verified: fetched live demo and template.csv; local parser run]</small></p>
+<p>Download <a href="template.csv">template.csv</a>. Save two copies as ledger.csv and bank.csv. Keep the header and both example rows:</p>
+<pre>client,reference,date,description,gross_cents,gst_cents,kind
+my-business,receipt-1,2026-01-15,Customer receipt,11000,1000,sale
+my-business,purchase-1,2026-01-16,Materials,-5500,500,purchase</pre>
+<p>The example receipt is AUD 110.00. The purchase is AUD -55.00. Amounts use integer cents. GST amounts are positive.</p>
+<p>Both files need the same columns in the same order. Keep client IDs consistent. Each client/reference pair must be unique within each file.</p>
+<p>Use dates in YYYY-MM-DD format. Supply one calendar year per file pair. Each file supports up to 10,000 rows and 2 MB.</p>
+<p>Use kind sale, purchase, or excluded. Sales use positive amounts. Purchases use negative amounts. Excluded rows need zero GST.</p>
+<h2>2. Load the matching example</h2>
+<p><small>[verified: fetched demo source; local matching-engine run]</small></p>
+<p>Open the <a href="./#import">live demo</a>. In “Import your own CSVs”, choose ledger.csv and bank.csv. Select “Load and reconcile locally”.</p>
+<p>The two unchanged template copies produce 2 matched ledger rows and no exceptions in the local engine check.</p>
+<p>The demo matches reference, date and gross amount for each client. It does not use description or GST to establish a match.</p>
+<h2>3. Create one date mismatch</h2>
+<p><small>[verified: local matching-engine run using the fetched template]</small></p>
+<p>In bank.csv only, change the purchase date from 2026-01-16 to 2026-01-17. Keep the ledger file unchanged.</p>
+<p>Load both files again. The local engine check produces 1 matched ledger row and 2 exceptions.</p>
+<p>The exceptions are the ledger purchase and the bank purchase. Their dates differ, so neither has an exact counterpart.</p>
+<p>These 2 exceptions represent one changed transaction pair. They do not prove that money is missing.</p>
+<h2>4. Review the source records</h2>
+<p><small>[inferred: suggested review procedure]</small></p>
+<p>Compare each exception with the source ledger and statement. Check the client ID, reference, date and signed amount.</p>
+<p>A posting date difference can prevent an exact match. A changed reference can also prevent a match.</p>
+<p>Record the reason for each difference. The firm decides whether any accounting change is needed.</p>
+<p>Do not change a source record only to make the demo match. The demo does not handle fuzzy matches or split transactions.</p>
+<h2>Limits before using client data</h2>
+<p><small>[verified: fetched demo source and offer; prior: prototype scope]</small></p>
+<p>This example uses synthetic rows. The demo processes imported CSVs in the browser tab. Refreshing clears imported data.</p>
+<p>The simplified model does not support refunds or adjustments. Its BAS-style figures are illustrations. It does not provide tax advice or lodgement.</p>
+<p>The demo footer retains an earlier AUD 299/month concept. The <a href="offer.html">current draft pilot offer</a> specifies AUD 299 total for one client and one quarter.</p>
+<h2>Assess the proposed pilot</h2>
+<p><small>[prior: draft offer; verified: fetched offer.html]</small></p>
+<p>The proposed pilot covers one client and one quarter, up to 10,000 rows per file. The draft price is AUD 299 total.</p>
+<p>Proposed outputs include a matched summary, an exceptions CSV and a review note. Delivery and buyer demand remain unvalidated.</p>
+<p><a class="button" href="offer.html">Read the pilot scope</a> <a class="button" href="https://github.com/maxmaxrouge-rgb/firm-ledger-demo/issues/new?template=request.yml">Open the pilot request form</a></p>
+<p>Requests are public on GitHub and need an existing account. Do not enter contact details, client data or payment information.</p>
+<p>A request is not an order. Final scope and tax treatment require confirmation before a sale.</p>
+<footer><small>Evidence labels: verified means fetched source or local run. Prior means an existing proposal. Inferred means an untested assumption or suggested procedure. No customer outcomes or sales are claimed.</small></footer></main></body></html>
