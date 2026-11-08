@@ -1,0 +1,3 @@
+client,reference,date,description,gross_cents,gst_cents,kind
+my-business,receipt-1,2026-01-15,Customer receipt,11000,1000,sale
+my-business,purchase-1,2026-01-16,Materials,-5500,500,purchase
