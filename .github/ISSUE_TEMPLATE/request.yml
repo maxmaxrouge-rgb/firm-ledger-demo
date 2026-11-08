@@ -1,0 +1,36 @@
+name: Request the reconciliation pilot
+description: Discuss the draft Ledger Lens pilot.
+title: "Pilot request"
+body:
+  - type: markdown
+    attributes:
+      value: "Requests are public. Do not include personal contact details, client data, financial records or payment information. A request is not an order."
+  - type: dropdown
+    id: organisation-type
+    attributes:
+      label: Organisation type
+      options:
+        - Accounting firm
+        - Bookkeeping firm
+        - Small business
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: need
+    attributes:
+      label: What do you need?
+      description: Describe the reconciliation task without client names or financial records.
+    validations:
+      required: true
+  - type: dropdown
+    id: contact-channel
+    attributes:
+      label: Preferred contact channel
+      description: Choose a channel only. Do not enter an address, phone number or other personal contact details.
+      options:
+        - This GitHub issue
+        - Email (private arrangement required)
+        - Phone (private arrangement required)
+    validations:
+      required: true
